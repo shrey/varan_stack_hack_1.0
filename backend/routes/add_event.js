@@ -9,7 +9,7 @@ router.post('/', (req, res, next)=>{
 			description : req.body.description,
 			image : req.body.image,
 			date : req.body.date,
-			location : req.body.location
+			location : req.body.location,
 			coordinates : {
 				lat : req.body.lat,
 				lng : req.body.lng

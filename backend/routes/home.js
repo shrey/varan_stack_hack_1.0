@@ -1,4 +1,4 @@
-var router = require('express')
+var router = require('express').Router();
 var mongo = require('mongodb')
 
 router.get('/', (req, res, next)=>{
@@ -31,7 +31,7 @@ router.get('/', (req, res, next)=>{
 					}
 					else
 					{
-						home_events.(data);
+						home_events.push(data);
 					}
 				}
 

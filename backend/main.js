@@ -2,6 +2,7 @@ var express = require('express')
 var session = require('express-session')
 var bodyParser = require('body-parser')
 var logger = require('morgan')
+var path = require('path')
 
 
 //Initialise App

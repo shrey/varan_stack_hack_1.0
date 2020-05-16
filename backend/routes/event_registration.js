@@ -8,7 +8,7 @@ router.post('/:event_id/registration',
 	check('name').isAlpha().isLength({min : 1}),
 	check('mobile_no').isNumeric().isLength({min : 10, max : 10}),
 	check('email').isEmail(),
-]
+],
 (req, res, next)=>{
 
 	const error = validationResult(req);
