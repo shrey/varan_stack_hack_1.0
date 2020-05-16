@@ -18,7 +18,6 @@ app.use(session({secret: 'helloforum', resave: true, saveUninitialized: true}));
 
 
 //Routes Files Import
-var adminLoginRoute = require('./routes/admin_login');
 var addEventRoute = require('./routes/add_event');
 var registrationRoute = require('./routes/event_registration');
 var homeRoute = require('./routes/home')
@@ -29,7 +28,6 @@ var deleteEventRoute = require('./routes/delete_event')
 
 //Routes
 app.use('/home', homeRoute)
-app.use('/admin/login', adminLoginRoute)
 app.use('/event/new', addEventRoute)
 app.use('/event/register/', registrationRoute)
 app.use('/event/delete/', deleteEventRoute);
