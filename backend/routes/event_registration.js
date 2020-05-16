@@ -4,7 +4,7 @@ var { check, validationResult } = require('express-validator');
 
 const MONGO_URL = 'mongodb://localhost:5000'
 
-router.post('/:event_id/registration', 
+router.post('/:event_id', 
 [
 	check('name').isAlpha().isLength({min : 1}),
 	check('mobile_no').isNumeric().isLength({min : 10, max : 10}),

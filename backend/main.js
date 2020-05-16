@@ -18,16 +18,23 @@ app.use(session({secret: 'helloforum', resave: true, saveUninitialized: true}));
 
 
 //Routes Files Import
-var admin_login = require('./routes/admin_login');
-var add_event = require('./routes/add_event');
-var registration = require('./routes/event_registration');
-var home = require('./routes/home')
+var adminLoginRoute = require('./routes/admin_login');
+var addEventRoute = require('./routes/add_event');
+var registrationRoute = require('./routes/event_registration');
+var homeRoute = require('./routes/home')
+var profileRoute = require('./routes/user_profile')
+var eventRoute = require('./routes/event')
+var deleteEventRoute = require('./routes/delete_event')
+
 
 //Routes
-app.use('/home', home)
-app.use('/admin/login', admin_login)
-app.use('/event/new', add_event)
-app.use('/event/', registration)
+app.use('/home', homeRoute)
+app.use('/admin/login', adminLoginRoute)
+app.use('/event/new', addEventRoute)
+app.use('/event/register/', registrationRoute)
+app.use('/event/delete/', deleteEventRoute);
+app.use('/event/', eventRoute)
+app.use('/user/', profileRoute)
 
 
 //Start Server
