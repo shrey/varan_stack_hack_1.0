@@ -1,5 +1,6 @@
 var router = require('express').Router();
 var mongo = require('mongodb')
+const MONGO_URL = 'mongodb://localhost:5000'
 
 router.get('/', (req, res, next)=>{
 
