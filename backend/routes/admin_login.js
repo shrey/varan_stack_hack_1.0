@@ -8,7 +8,7 @@ router.post('/', (req, res, next)=>{
 	mongo.MongoClient.connect(MONGO_URL, (error, client)=>{
 		var admin = client.db('varan').collection('admin')
 		
-		admin.findOne({email: req.body.email, passwd: req.body.passwd}, (err, admin)=>{
+		admin.findOne({key : req.body.key}, (err, admin)=>{
 			
 			if(admin != null)
 			{
