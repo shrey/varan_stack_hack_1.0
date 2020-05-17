@@ -1,26 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import SignIn from './pages/admin-login/admin-login.component'
+import CollectionPage from './pages/events-collection/events-collection.component'
+import {connect} from 'react-redux'
+import {createStructuredSelector} from 'reselect'
 import './App.css';
-
-function App() {
+import Header from './components/header/header.component'
+import {selectAdminPresent} from './redux/admin/admin.selector'
+function App({isAdmin}) {
+  console.log("Admin: ")
+  console.log(isAdmin);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <div>
+      <Header />
+      <Switch>
+        <Route exact path = "/" component = {CollectionPage} />
+        <Route exact path = "/admin" 
+        render = 
+        {
+          () => isAdmin?
+            (<Redirect to = '/' />):
+            (
+              <SignIn />
+            )
+        } />
+
+      </Switch>
+   </div>
+   
   );
 }
-
-export default App;
+const mapStateToProps = createStructuredSelector({
+  isAdmin: selectAdminPresent
+})
+export default connect(mapStateToProps)(App);
