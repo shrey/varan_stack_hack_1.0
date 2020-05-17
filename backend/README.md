@@ -7,10 +7,10 @@ Route                      Method        Use
 
 `/event/new`                 POST        Add a event
 
-`/event/delete/:id`          POST        Delete a event
+`/event/delete/:event_id`          POST        Delete a event
 
-`/event/:id`                 GET         Get single event
+`/event/:event_id`                 GET         Get single event
 
-`/user/:id`                  GET         Get User Profile
+`/user/:user_id`                  GET         Get User Profile
 
-`/event/register/:id`        POST        Register User for event
+`/event/register/:event_id`        POST        Register User for event
