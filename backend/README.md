@@ -3,7 +3,7 @@
 
 Route                      Method        Use
 
-`/home`                      GET         Home Page
+`/home`                      GET         List of Events
 
 `/event/new`                 POST        Add a event
 
