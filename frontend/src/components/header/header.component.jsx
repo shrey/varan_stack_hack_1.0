@@ -44,8 +44,8 @@ function Header({isAdmin,removeAdmin,history}) {
               isAdmin? 
               (
                 <span>
-                <Button color = "inherit">
-                    + Add event
+                <Button color = "inherit" onClick = {() => history.push('/event/new')}>
+                    + Add Event
                 </Button>
                 <Button color = "inherit" onClick = {() => removeAdmin()}>
                     Logout
