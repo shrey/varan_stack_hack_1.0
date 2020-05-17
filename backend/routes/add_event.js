@@ -1,11 +1,9 @@
 var router = require('express').Router()
 var mongo = require('mongodb')
 
-const MONGO_URL = 'mongodb://localhost'
+const MONGO_URL = 'mongodb://localhost:8000'
 
 router.post('/', (req, res, next)=>{
-
-	if(req.session.logged == true){
 		var event_data = {
 			name : req.body.name,
 			description : req.body.description,
@@ -37,9 +35,7 @@ router.post('/', (req, res, next)=>{
 			});
 		});
 
-	}
-	else
-		res.status(200).json({"msg" : "Loggin as Admin to create an event"});
+	
 });
 
 module.exports = router;
