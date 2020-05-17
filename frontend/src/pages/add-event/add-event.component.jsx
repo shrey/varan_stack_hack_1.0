@@ -66,7 +66,7 @@ function AddEvent() {
     const handleSubmit = event =>{
         event.preventDefault();
         axios({
-            url: 'new',
+            url: '/event/new',
             method: 'post',
             data: {
                 name: name,
