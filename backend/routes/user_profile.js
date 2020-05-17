@@ -1,7 +1,7 @@
 var router = require('express').Router()
 var mongo = require('mongodb')
 
-var MONGO_URL = 'mongodb://localhost:5000'
+var MONGO_URL = 'mongodb://localhost'
 
 router.get('/:id', (req, res, next)=>{
 

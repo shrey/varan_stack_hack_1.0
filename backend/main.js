@@ -1,4 +1,5 @@
 var express = require('express')
+const cors = require('cors')
 var session = require('express-session')
 var bodyParser = require('body-parser')
 var logger = require('morgan')
@@ -9,6 +10,7 @@ var path = require('path')
 var app = express()
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors());
 // some extra setup
 app.use(logger('dev'));
 app.use(express.json());
@@ -36,8 +38,8 @@ app.use('/user/', profileRoute)
 
 
 //Start Server
-app.listen(3000, ()=>{
-	console.log("Server Listening at http://localhost:3000");
+app.listen(5000, ()=>{
+	console.log("Server Listening at http://localhost:5000");
 });
 
 

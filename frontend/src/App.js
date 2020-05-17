@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect'
 import './App.css';
 import Header from './components/header/header.component'
+import AddEvent from './pages/add-event/add-event.component'
 import {selectAdminPresent} from './redux/admin/admin.selector'
 function App({isAdmin}) {
   console.log("Admin: ")
@@ -24,6 +25,7 @@ function App({isAdmin}) {
               <SignIn />
             )
         } />
+        <Route exact path = "/event/new" component = {AddEvent} />
 
       </Switch>
    </div>

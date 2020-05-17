@@ -4,18 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-	  "start" : "node main.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "frontend": "cd .. && cd frontend && npm start",
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node main.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run frontend\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "express-validator": "^6.4.1",
     "mongodb": "^3.5.7",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.4"
   }
 }
