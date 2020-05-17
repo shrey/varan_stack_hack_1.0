@@ -9,7 +9,7 @@ Route                      Method        Use
 
 `/event/delete/:id`          POST        Delete a event
 
-`/event/:id`                 GET         Get single push
+`/event/:id`                 GET         Get single event
 
 `/user/:id`                  GET         Get User Profile
 
