@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
-
+import {withRouter,Redirect} from 'react-router-dom'
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -15,6 +15,7 @@ import Container from '@material-ui/core/Container';
 import {setAdmin} from '../../redux/admin/admin.actions'
 import {connect} from 'react-redux'
 import axios from 'axios'
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -48,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddEvent() {
+function AddEvent({history}) {
   const classes = useStyles();
     const [eventCredentails,setEventCredentials] = useState({
         name: '',
@@ -76,6 +77,7 @@ function AddEvent() {
             }
         }).then(response => {
             alert('Request Sent');
+            history.push("/");
         })
         .catch(error => {
             console.log('Error: ',error);
@@ -177,5 +179,5 @@ const mapDispatchToProps = dispatch => ({
     setAdmin: () => dispatch(setAdmin())
 })
 
-export default connect(null,mapDispatchToProps)(AddEvent);
+export default withRouter(connect(null,mapDispatchToProps)(AddEvent));
 
