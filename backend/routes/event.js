@@ -5,7 +5,7 @@ const MONGO_URL = 'mongodb://localhost'
 
 router.get('/:id', (req, res, next)=>{
 
-	mongo.MongoClient.connect(MONGO_URL, (req, res, next)=>{
+	mongo.MongoClient.connect(MONGO_URL, (error,client)=>{
 	
 		var event_db = client.db('varan').collection('event')
 

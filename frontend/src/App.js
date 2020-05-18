@@ -7,7 +7,9 @@ import {createStructuredSelector} from 'reselect'
 import './App.css';
 import Header from './components/header/header.component'
 import AddEvent from './pages/add-event/add-event.component'
+import EventPage from './pages/event-page/event-page.component'
 import {selectAdminPresent} from './redux/admin/admin.selector'
+import UserRegister from './pages/user-register-and-preview/user-register-and-preview.component';
 function App({isAdmin}) {
   console.log("Admin: ")
   console.log(isAdmin);
@@ -26,6 +28,8 @@ function App({isAdmin}) {
             )
         } />
         <Route exact path = "/event/new" component = {AddEvent} />
+        <Route exact path = "/event/:id" component = {EventPage} />
+        <Route exact path = "/event/:id/register" component = {UserRegister} />
 
       </Switch>
    </div>
