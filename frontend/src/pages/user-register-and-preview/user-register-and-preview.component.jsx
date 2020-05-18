@@ -54,6 +54,8 @@ const UserRegister = ({match,eventName}) => {
         tickets: '',
         mobile_no: ''
     });
+
+    const {name,email,image_url,registration_type,tickets,mobile_no} = userCredentials;
     const handleChange = event => {
         const {name,value} = event.target;
         setUserCredentials({...userCredentials, [name]: value});
@@ -68,8 +70,13 @@ const UserRegister = ({match,eventName}) => {
             url: `/event/register/${match.params.id}`,
             method: 'post',
             data: {
-                userCredentials
-            }
+            name: name,
+            email: email,
+            image_url: image_url,
+            registration_type: registration_type,
+            tickets: tickets,
+            mobile_no: mobile_no
+        }
         }).then(response => {
             alert("Successful Post");
         }).catch(error => {
@@ -79,7 +86,7 @@ const UserRegister = ({match,eventName}) => {
     
     const classes = useStyles();
     
-    const {name,email,image_url,registration_type,tickets,mobile_no} = userCredentials;
+    
     
     return(
         
