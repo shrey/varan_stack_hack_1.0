@@ -26,6 +26,7 @@ var homeRoute = require('./routes/home')
 var profileRoute = require('./routes/user_profile')
 var eventRoute = require('./routes/event')
 var deleteEventRoute = require('./routes/delete_event')
+var commentRoute = require('./routes/comments')
 
 
 //Routes
@@ -35,6 +36,7 @@ app.use('/event/register/', registrationRoute)
 app.use('/event/delete/', deleteEventRoute);
 app.use('/event/', eventRoute)
 app.use('/user/', profileRoute)
+app.use('/comment', commentRoute);
 
 
 //Start Server
