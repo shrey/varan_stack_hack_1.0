@@ -14,7 +14,17 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {setAdmin} from '../../redux/admin/admin.actions'
 import {connect} from 'react-redux'
+import GeoCode from 'react-geocode';
 import axios from 'axios'
+import MapGL, { Marker } from '@urbica/react-map-gl';
+import InputBase from '@material-ui/core/InputBase';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
+import DirectionsIcon from '@material-ui/icons/Directions';
+import PinDropIcon from '@material-ui/icons/PinDrop';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 function Copyright() {
   return (
@@ -47,6 +57,23 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  root: {
+    padding: '2px 4px',
+    display: 'flex',
+    alignItems: 'center',
+    width: 400,
+  },
+  input: {
+    marginLeft: theme.spacing(1),
+    flex: 1,
+  },
+  iconButton: {
+    padding: 10,
+  },
+  divider: {
+    height: 28,
+    margin: 4,
+  },
 }));
 
 function AddEvent({history}) {
@@ -63,9 +90,26 @@ function AddEvent({history}) {
         console.log(name,value);
         setEventCredentials({...eventCredentails,[name]: value})
     }
-
-    const handleSubmit = event =>{
+    const [position, setPosition] = useState({
+        longitude: 0,
+        latitude: 0
+      });
+    const handleSubmit = async event =>{
         event.preventDefault();
+        console.log("HERE")
+        try {
+            console.log("Now here")
+            
+        GeoCode.setLanguage("en");
+        GeoCode.setRegion("in");
+       await GeoCode.fromAddress("New Delhi").then(
+            response => {
+                const {lat,lng } = response.results[0].geometry.location;
+                console.log(lat,lng);
+            }
+        )
+        .catch(error => {console.log(error)})
+    }catch(error){console.log(error)}
         axios({
             url: '/event/new',
             method: 'post',
@@ -73,7 +117,9 @@ function AddEvent({history}) {
                 name: name,
                 description: description,
                 image: image,
-                location: location
+                location: location,
+                lat: position.latitude,
+                lng: position.longitude,
             }
         }).then(response => {
             alert('Request Sent');
@@ -87,8 +133,41 @@ function AddEvent({history}) {
         })
         //trigger sagas.
     }
-  
-    return (
+    
+      
+      const style = {
+        padding: '10px',
+        color: '#fff',
+        cursor: 'pointer',
+        background: '#1978c8',
+        borderRadius: '6px'
+      };
+      const onDragEnd = (lngLat) => {
+        setPosition({ longitude: lngLat.lng, latitude: lngLat.lat });
+      };
+      const [viewport, setViewport] = useState({
+        latitude: 37.78,
+        longitude: -122.41,
+        zoom: 11
+      });
+      
+    const handleLocation = async (event) => {
+        const address = encodeURIComponent(eventCredentails.location);
+        axios({
+            method: 'get',
+            url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=pk.eyJ1Ijoic2hyZXlkMTIzIiwiYSI6ImNrOG9yZHVscTA1MDYzZnRkY2VtcDd5MWYifQ.G5MQ9uSX90EDrzONZWQ8Hg`
+        }).then(response => {
+            const longAndLat = response.data.features[0].geometry.coordinates
+            console.log(longAndLat);
+            setPosition({
+                longitude: longAndLat[0],
+                latitude: longAndLat[1]
+            })
+            }).catch(error => {
+                console.log("error: ",error);
+        })
+    }
+      return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -151,11 +230,27 @@ function AddEvent({history}) {
             autoComplete="Event-Location"
             onChange = {handleChange}
           />
-
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+          <IconButton type="button" className={classes.iconButton} aria-label="search" onClick = {handleLocation}>
+            <SearchIcon />
+          </IconButton>
+            <MapGL
+            style={{ width: '100%', height: '400px' }}
+            mapStyle='mapbox://styles/mapbox/light-v9'
+            accessToken= "pk.eyJ1Ijoic2hyZXlkMTIzIiwiYSI6ImNrOG9yZHVscTA1MDYzZnRkY2VtcDd5MWYifQ.G5MQ9uSX90EDrzONZWQ8Hg"
+            latitude={position.latitude}
+            longitude={position.longitude}
+            zoom={0}
+            onViewportChange={setViewport}
+            >
+            <Marker
+                longitude={position.longitude}
+                latitude={position.latitude}
+                onDragEnd={onDragEnd}
+                draggable
+            >
+                <PinDropIcon />
+            </Marker>
+            </MapGL>
           <Button
             type="submit"
             fullWidth

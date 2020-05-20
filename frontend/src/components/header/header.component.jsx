@@ -16,6 +16,7 @@ import { removeAdmin } from '../../redux/admin/admin.actions'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    marginBottom: "20px"
   },
   menuButton: {
     marginRight: theme.spacing(2),

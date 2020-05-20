@@ -2,6 +2,9 @@ import React from 'react';
 import axios from 'axios'
 import Grid from '@material-ui/core/Grid'
 import EventContent from '../../components/events-collection-content/events-collection-content.component'
+import {Container} from '@material-ui/core'
+import {makeStyles} from '@material-ui/core/styles'
+
 class CollectionPage extends React.Component{
     constructor(props){
         super(props);
@@ -25,21 +28,21 @@ class CollectionPage extends React.Component{
             alert("couldn't fetch data")
         })
     }     
+    
     render(){
         const{eventCollections} = this.state;
+        
         return(
             <div>
-            <Grid container>
-                <Grid item xs={false} sm={2} />
-                <Grid item xs={12} sm={8}>
+                 <Container  maxWidth="md">
                     <EventContent events = {eventCollections}/>
-                </Grid>
-
-                <Grid item xs={false} sm={2} />
-
-            </Grid>
+                 </Container>
+            
+                
             
             </div>
+            
+            
         )
     }
 }
