@@ -50,7 +50,7 @@ app.use(function(req, res) {
 });
 
 //Start Server
-app.listen(5000, ()=>{
+app.listen(process.env.PORT || 3000, ()=>{
 	console.log(`Server Listening at http://localhost:${PORT}`);
 });
 
