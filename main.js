@@ -9,13 +9,18 @@ var path = require('path')
 //Initialise App
 var app = express()
 
+
+//Initialise Server
+const PORT = process.env.PORT || 3000;
+
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 // some extra setup
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('client/build'));
 app.use(session({secret: 'helloforum', resave: true, saveUninitialized: true}));
 
 
@@ -39,9 +44,14 @@ app.use('/user/', profileRoute)
 app.use('/comment', commentRoute);
 
 
+//If no Route is given
+app.use(function(req, res) {
+	res.sendFile(path.join(__dirname, 'client/build/index.html'));
+});
+
 //Start Server
 app.listen(5000, ()=>{
-	console.log("Server Listening at http://localhost:5000");
+	console.log(`Server Listening at http://localhost:${PORT}`);
 });
 
 

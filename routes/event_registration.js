@@ -2,7 +2,7 @@ var router = require('express').Router()
 var mongo = require('mongodb')
 var { check, validationResult } = require('express-validator');
 
-const MONGO_URL = 'mongodb://localhost'
+const MONGO_URL = process.env.MONGO_URI || 'mongodb://localhost'
 
 router.post('/:event_id', 
 [

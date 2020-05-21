@@ -1,6 +1,6 @@
 var mongo = require('mongodb')
 
-const MONGO_URL = 'mongodb://localhost';
+const MONGO_URL = process.env.MONGO_URI || 'mongodb://localhost'
 
 var data = [
 	{

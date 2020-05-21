@@ -1,12 +1,13 @@
 const router = require('express').Router()
 const mongo = require('mongodb');
 
+const MONGO_URL = process.env.MONGO_URI || 'mongodb://localhost'
 
 router.put('/', async (req, res, next) => {
 
 
 		//Database Connection
-		mongo.MongoClient.connect('mongodb://localhost:5000', (error, client)=>{
+		mongo.MongoClient.connect(MONGO_URL, (error, client)=>{
 			
 			var db = client.db('varan');
 			db.collection('event').findOne({_id : new mongo.ObjectId(req.body._id)}, (err, event)=>{

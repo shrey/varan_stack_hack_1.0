@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "frontend": "cd .. && cd frontend && npm start",
+    "frontend": "cd client && npm start",
     "start": "node main.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "node main.js",
