@@ -32,16 +32,18 @@ var profileRoute = require('./routes/user_profile')
 var eventRoute = require('./routes/event')
 var deleteEventRoute = require('./routes/delete_event')
 var commentRoute = require('./routes/comments')
+var uploadRoute = require('./routes/upload')
 
 
 //Routes
 app.use('/home', homeRoute)
 app.use('/event/new', addEventRoute)
 app.use('/event/register/', registrationRoute)
-app.use('/event/delete/', deleteEventRoute);
+app.use('/event/delete/', deleteEventRoute)
 app.use('/event/', eventRoute)
 app.use('/user/', profileRoute)
-app.use('/comment', commentRoute);
+app.use('/comment', commentRoute)
+app.use('/upload', uploadRoute)
 
 
 //If no Route is given
