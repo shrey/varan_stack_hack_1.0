@@ -13,7 +13,8 @@ router.put('/', (req, res, next)=>{
 			var comment = event.comment;
 			var data = {
 				user : req.body.name,
-				comment : req.body.comment
+				comment : req.body.comment,
+				date : new Date.now()
 			};
 
 			if(comment == undefined)
