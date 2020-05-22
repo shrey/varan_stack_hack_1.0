@@ -10,6 +10,7 @@ import AddEvent from './pages/add-event/add-event.component'
 import EventPage from './pages/event-page/event-page.component'
 import {selectAdminPresent} from './redux/admin/admin.selector'
 import UserRegister from './pages/user-register-and-preview/user-register-and-preview.component';
+import UserProfile from './pages/user-profile/user-profile.component'
 function App({isAdmin}) {
   console.log("Admin: ")
   console.log(isAdmin);
@@ -30,6 +31,7 @@ function App({isAdmin}) {
         <Route exact path = "/event/new" component = {AddEvent} />
         <Route exact path = "/event/:id" component = {EventPage} />
         <Route exact path = "/event/:id/register" component = {UserRegister} />
+        {/* <Route exact path = "/user/:id" component = {UserProfile} /> */}
 
       </Switch>
    </div>

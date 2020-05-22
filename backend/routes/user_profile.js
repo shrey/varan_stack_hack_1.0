@@ -9,7 +9,7 @@ router.get('/:id', (req, res, next)=>{
 	
 		var user_db = client.db('varan').collection('user')
 
-		user_db.findOne({ _id : req.params.id }, (err, user)=>{
+		user_db.findOne({ _id : new mongo.ObjectId(req.body._id)}, (err, user)=>{
 		
 			if(user == null)
 			{
