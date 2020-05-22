@@ -1,7 +1,7 @@
 var router = require('express').Router()
 var mongo = require('mongodb')
 
-const MONGO_URL = process.env.MONGO_URI || 'mongodb://localhost'
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost'
 
 router.put('/', (req, res, next)=>{
 
