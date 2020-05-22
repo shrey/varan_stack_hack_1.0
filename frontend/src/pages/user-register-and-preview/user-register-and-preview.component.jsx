@@ -1,8 +1,8 @@
 import React,{useState,useEffect} from 'react';
-import Avatar from '@material-ui/core/Avatar';
+
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
+import {TextField, Select, FormControl, InputLabel, Container, Avatar} from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
@@ -11,7 +11,7 @@ import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+
 import {setAdmin} from '../../redux/admin/admin.actions'
 import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect'
@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
+      textAlign: 'center',
     },
     avatar: {
       margin: theme.spacing(1),
@@ -36,9 +37,28 @@ const useStyles = makeStyles((theme) => ({
     submit: {
       margin: theme.spacing(3, 0, 2),
     },
+    formControl: {
+        width: "100%",
+        marginTop: theme.spacing(1)
+    },
+    avatar: {
+        width: "150px",
+        height: "150px",
+    },
+    previewText: {
+        textAlign: "center",
+        width: "300px"
+    },
+    buttonContainer: {
+        alignItems: "center",
+        textAlign: "center"
+    },
+    button: {
+        margin: "20px"
+    }
   }));
   
-const UserRegister = ({match,eventName}) => {
+const UserRegister = ({match,eventName,history}) => {
     console.log("USER REGISTER")
     console.log(match);
     
@@ -60,15 +80,28 @@ const UserRegister = ({match,eventName}) => {
 
     const {name,email,image_url,registration_type,tickets,mobile_no} = userCredentials;
     const handleChange = event => {
+        
         const {name,value} = event.target;
+        console.log(value);
         setUserCredentials({...userCredentials, [name]: value});
+        console.log(userCredentials);
     }
     const setToPreview = event =>{
         event.preventDefault();
+        var isEmpty = false;
+        for(var key in userCredentials){
+            if(userCredentials[key] === ''){
+               isEmpty = true;
+            }
+        }
+        if(isEmpty){
+            alert("Please Enter all values");
+            return;
+        }
         setPreview(true);
     }
-    const handleSubmit = event =>{
-        event.preventDefault();
+    const handleSubmit = () =>{
+        
         axios({
             url: `/event/register/${match.params.id}`,
             method: 'post',
@@ -83,6 +116,9 @@ const UserRegister = ({match,eventName}) => {
 
         }).then(response => {
             alert("Successful Post");
+            
+            console.log(response);
+            history.push(`/event/${match.params.id}`)
         }).catch(error => {
             alert("Some error occured")
         })
@@ -98,36 +134,102 @@ const UserRegister = ({match,eventName}) => {
             {
                 preview? (
                 <div>
-                    Hey this is the preview page
-                    <div>{name}</div>
-                    <div>{email}</div>
-                    <div>{image_url}</div>
-                    <div>{registration_type}</div>
-                    <div>{tickets}</div>
-                    <div>{mobile_no}</div>
-                    <form className={classes.form} 
-                    noValidate 
-                    onSubmit = {handleSubmit}>
-                    <Button
-                    type="submit"
-                    
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                    
-                    >Confirm</Button>
-                    <Button
-                    type="button"
-                    
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                    onClick = {() => setPreview(false)}
-                    >Edit Details</Button>
-                    </form>
-                    
-                Preview
-            
+                    <Container component = "main" maxWidth = "xs">
+                        <CssBaseline />
+
+                        <div className = {classes.paper}>
+                            <Avatar alt = {name} src = {image_url} alt = {name} className = {classes.avatar}/>
+                            <TextField
+                            variant="standard"
+                            isRequired="true"
+                            margin="normal"
+                            className = {classes.previewText}
+                            
+                            name="name"
+                            label="Name"
+                            type="Text"
+                            id = "user_name_preview"
+                            
+                            autoComplete="user-name"
+                            value = {name}
+                            disabled
+                            />
+                            <TextField
+                            variant="standard"
+                            margin="normal"
+                            
+                            disabled
+                            name="email"
+                            label="Email"
+                            type="email"
+                            id = "user_email_preview"
+                            onChange = {handleChange}
+                            autoComplete="user-email"
+                            value = {email}
+                            className = {classes.previewText}
+                            />
+                            <TextField
+                            variant="standard"
+                            margin="normal"
+                            
+                            disabled
+                            name="registration_type"
+                            label="Registration Type"
+                            type="text"
+                            id = "registration_type_preview"
+                            onChange = {handleChange}
+                            autoComplete="registration-type"
+                            value = {registration_type}
+                            className = {classes.previewText}
+                            />
+                            <TextField
+                            variant="standard"
+                            margin="normal"
+                            
+                            disabled
+                            name="tickets"
+                            label="Tickets"
+                            type="text"
+                            id = "tickets_preview"
+                            onChange = {handleChange}
+                            autoComplete="registration-type"
+                            value = {tickets}
+                            className = {classes.previewText}
+                            />
+                            <TextField
+                            variant="standard"
+                            margin="normal"
+                            
+                            disabled
+                            name="mobile_no"
+                            label="Mobile Number"
+                            type="text"
+                            id = "mobile_no__preview"
+                            onChange = {handleChange}
+                            autoComplete="mobile-no"
+                            value = {mobile_no}
+                            className = {classes.previewText}
+                            />
+                        </div>
+                        <div className = {classes.buttonContainer}>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            className={classes.button}
+                            onClick = {() => setPreview(false)}
+                        >
+                            Edit
+                        </Button>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            className={classes.button}
+                            onClick = {() => handleSubmit()}
+                        >
+                            Register
+                        </Button>
+                        </div>
+                    </Container>
                 </div>
             ):
             (
@@ -142,6 +244,7 @@ const UserRegister = ({match,eventName}) => {
             <form className={classes.form} noValidate onSubmit = {setToPreview}>
                 <TextField
                 variant="outlined"
+                isRequired="true"
                 margin="normal"
                 required
                 fullWidth
@@ -152,6 +255,7 @@ const UserRegister = ({match,eventName}) => {
                 onChange = {handleChange}
                 autoComplete="user-name"
                 value = {name}
+                
                 />
                 <TextField
                 variant="outlined"
@@ -160,7 +264,7 @@ const UserRegister = ({match,eventName}) => {
                 fullWidth
                 name="email"
                 label="Email"
-                type="text"
+                type="email"
                 id = "user_email"
                 onChange = {handleChange}
                 autoComplete="user-email"
@@ -179,19 +283,26 @@ const UserRegister = ({match,eventName}) => {
                 autoComplete="user-image"
                 value = {image_url}
                 />
-                <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="registration_type"
+                <FormControl variant="outlined" className={classes.formControl}>
+                <InputLabel htmlFor="filled-age-native-simple">Registration Type</InputLabel>
+                <Select
+                native
+                name = 'registration_type'
+                onChange={handleChange}
                 label="Registration Type"
-                type="text"
-                id = "registration_type"
-                onChange = {handleChange}
-                autoComplete="registration-type"
-                value = {registration_type}
-                />
+                inputProps={{
+                    name: 'registration_type',
+                    id: 'outlined-age-native-simple',
+                }}
+                >
+            <option aria-label="None" value="" />
+                <option value="Self">Self</option>
+                <option value="Group">Group</option>
+                <option value="Corporate">Corporate</option>
+                <option value="Others">Others</option>
+                </Select>
+                </FormControl>
+                
                 <TextField
                 variant="outlined"
                 margin="normal"
@@ -199,7 +310,7 @@ const UserRegister = ({match,eventName}) => {
                 fullWidth
                 name="tickets"
                 label="Number of Tickets"
-                type="text"
+                type="number"
                 id = "tickets"
                 onChange = {handleChange}
                 autoComplete="tickets"
@@ -212,7 +323,7 @@ const UserRegister = ({match,eventName}) => {
                 fullWidth
                 name="mobile_no"
                 label="Mobile Number(10 digits)"
-                type="text"
+                type="number"
                 id = "mobile"
                 onChange = {handleChange}
                 autoComplete="mobile"
@@ -244,4 +355,4 @@ const UserRegister = ({match,eventName}) => {
 const mapDispatchToProps = createStructuredSelector({
     eventName: selectEventName
 })
-export default connect(mapDispatchToProps)(UserRegister);
+export default withRouter(connect(mapDispatchToProps)(UserRegister));

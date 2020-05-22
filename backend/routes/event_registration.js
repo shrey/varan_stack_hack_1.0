@@ -37,7 +37,7 @@ router.post('/:event_id',
 			var user_db = client.db('varan').collection('user')
 			var event_db = client.db('varan').collection('event')
 			
-			var user_mail;
+			var user_mail = req.body.email;
 
 			user_db.insertOne(data, (err, user)=>{
 				if(err)
@@ -58,13 +58,13 @@ router.post('/:event_id',
 					user_event = [{
 						_id : user_id,
 						name : req.body.name,
-						mail : req.body.email
+						email : req.body.email
 						}];
 				}
 				else{
 					for(var i = 0; i < user_event.length; i++)
 					{
-						if( user_mail == user_event[i]._mail)
+						if( user_mail == user_event[i].email)
 						{
 							exist = true;
 							break;
@@ -75,7 +75,8 @@ router.post('/:event_id',
 						user_event.push({
 							_id : user_id,
 							name : req.body.name,
-							mail : req.body.email
+							email : req.body.email,
+							image: req.body.image_url,
 						});
 					}
 					else{
