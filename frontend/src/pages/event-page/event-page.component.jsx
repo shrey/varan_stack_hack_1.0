@@ -6,11 +6,12 @@ import {connect} from 'react-redux'
 import {setName} from '../../redux/single-event/single-event.actions';
 import {selectAdminPresent} from '../../redux/admin/admin.selector'
 import {createStructuredSelector} from 'reselect';
-import {Grid, CardMedia, Card, Typography,Container,CardContent} from '@material-ui/core'
+import {Grid, CardMedia, Card, Typography,Container,CardContent, Button} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
 import MapGL,{Marker} from '@urbica/react-map-gl';
 import PinDropIcon from '@material-ui/icons/PinDrop';
-
+import CommentBox from '../../components/comment-box/comment-box.component'
+import UsersBox from '../../components/users-box/users-box.component'
 const useStyles = makeStyles({
     card: {
         flexDirection: 'column',
@@ -51,7 +52,7 @@ const EventPage = ({match,setName,isAdmin,history}) => {
             alert("Error Occured");
         })
     },[])  
-    const {name,_id,description,image,location,likes} = event;
+    const {name,_id,description,image,location,comments,users} = event;
         console.log(event);
       const latitude = event.coordinates? event.coordinates.lat: 0;
       const longitude = event.coordinates? event.coordinates.lng: 0;
@@ -67,6 +68,8 @@ const EventPage = ({match,setName,isAdmin,history}) => {
                 alert("Some error occured while deleting")
             })
         }
+        console.log(match);
+        console.log(location);
         const classes = useStyles();
         return(
           <div>
@@ -83,6 +86,7 @@ const EventPage = ({match,setName,isAdmin,history}) => {
                         <Typography>
                             {description}
                         </Typography>
+                        <CommentBox eventId = {_id} comments = {comments}/>
 
                     </Grid>
                     <Grid item sm = {6} xs = {12}>
@@ -102,8 +106,16 @@ const EventPage = ({match,setName,isAdmin,history}) => {
                             <PinDropIcon />
                         </Marker>
                     </MapGL>
+                    <UsersBox users = {users}/>
                     </Grid>
                 </Grid>
+                <div style = {{textAlign: "center",marginTop: "20px"
+                                
+                                }}>
+                    <Button variant = "contained" onClick = {() => history.push(`${match.url}/register`)} color = "primary">
+                        REGISTER
+                    </Button>
+                </div>
             </CardContent>
            </Card>
            
@@ -115,7 +127,7 @@ const EventPage = ({match,setName,isAdmin,history}) => {
 
            
             
-        )
+        )     
     
 }
 const mapStateToProps = createStructuredSelector({

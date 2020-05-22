@@ -96,20 +96,6 @@ function AddEvent({history}) {
       });
     const handleSubmit = async event =>{
         event.preventDefault();
-        console.log("HERE")
-        try {
-            console.log("Now here")
-            
-        GeoCode.setLanguage("en");
-        GeoCode.setRegion("in");
-       await GeoCode.fromAddress("New Delhi").then(
-            response => {
-                const {lat,lng } = response.results[0].geometry.location;
-                console.log(lat,lng);
-            }
-        )
-        .catch(error => {console.log(error)})
-    }catch(error){console.log(error)}
         axios({
             url: '/event/new',
             method: 'post',
@@ -190,6 +176,7 @@ function AddEvent({history}) {
             value = {name}
             autoComplete="event-name"
             onChange = {handleChange}
+            required
           />
             <TextField
             variant="outlined"
@@ -203,6 +190,7 @@ function AddEvent({history}) {
             value = {description}
             autoComplete="event-description"
             onChange = {handleChange}
+            required
           />
             <TextField
             variant="outlined"
@@ -216,6 +204,7 @@ function AddEvent({history}) {
             value = {image}
             autoComplete="event-image"
             onChange = {handleChange}
+            required
           />
             <TextField
             variant="outlined"
@@ -229,6 +218,7 @@ function AddEvent({history}) {
             value = {location}
             autoComplete="Event-Location"
             onChange = {handleChange}
+            required
           />
           <IconButton type="button" className={classes.iconButton} aria-label="search" onClick = {handleLocation}>
             <SearchIcon />

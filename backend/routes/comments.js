@@ -1,5 +1,5 @@
 var router = require('express').Router()
-var mongodb = require('mongodb')
+var mongo = require('mongodb')
 
 const MONGO_URI = 'mongodb://localhost'
 
@@ -10,7 +10,7 @@ router.put('/', (req, res, next)=>{
 		var event_db = client.db('varan').collection('event')
 
 		event_db.findOne({ _id : new mongo.ObjectId(req.body._id)}, (err, event)=>{
-			var comment = event.comment;
+			var comment = event.comments;
 			var data = {
 				user : req.body.name,
 				comment : req.body.comment
@@ -21,7 +21,7 @@ router.put('/', (req, res, next)=>{
 			else
 				comment.push(data);
 
-			event_db.updateOne({ _id : new mongo.ObjectId(req.body._id)}, { $set : { comment : comment } }, (error_update, update)=>{
+			event_db.updateOne({ _id : new mongo.ObjectId(req.body._id)}, { $set : { comments : comment } }, (error_update, update)=>{
 
 				if(error_update)
 					res.status(400).json({"msg" : "Cannot make Comment"});
