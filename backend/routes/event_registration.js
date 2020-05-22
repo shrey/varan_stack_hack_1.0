@@ -58,7 +58,8 @@ router.post('/:event_id',
 					user_event = [{
 						_id : user_id,
 						name : req.body.name,
-						email : req.body.email
+						email : req.body.email,
+						image: req.body.image_url
 						}];
 				}
 				else{

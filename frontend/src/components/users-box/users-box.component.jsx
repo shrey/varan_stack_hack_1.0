@@ -39,6 +39,7 @@ const UsersBox = ({users}) => {
     if(!users){
         users = [];
     }
+    //user also gives user._id
     const classes = useStyles();
     return(
     <div className = {classes.box}>
