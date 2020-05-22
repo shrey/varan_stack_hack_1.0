@@ -75,7 +75,7 @@ export default function CommentBox({eventId,comments}) {
               name: '',
               comment: ''
           })
-          window.location.reload(false);
+          window.location.reload(true);
       }).catch(error => {
           alert("Comment error")
           console.log(error);
