@@ -16,12 +16,14 @@ router.put('/', (req, res, next)=>{
 				comment : req.body.comment,
 				date : new Date.now()
 			};
-
+			
+			console.log("Commendt: ",data);
 			if(comment == undefined)
 				comment = [data];
 			else
 				comment.push(data);
 
+			console.log("COM: ",comment);
 			event_db.updateOne({ _id : new mongo.ObjectId(req.body._id)}, { $set : { comments : comment } }, (error_update, update)=>{
 
 				if(error_update)
