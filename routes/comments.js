@@ -14,7 +14,7 @@ router.put('/', (req, res, next)=>{
 			var data = {
 				user : req.body.name,
 				comment : req.body.comment,
-				date : new Date.now()
+				date : new Date().toISOString().slice(0,10)
 			};
 			
 			console.log("Commendt: ",data);
