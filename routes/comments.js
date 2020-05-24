@@ -3,7 +3,7 @@ var mongo = require('mongodb')
 
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost'
 
-router.put('/', (req, res, next)=>{
+router.post('/', (req, res, next)=>{
 
 	mongo.MongoClient.connect(MONGO_URI, (error, client)=>{
 

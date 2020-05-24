@@ -62,7 +62,7 @@ export default function CommentBox({eventId,comments}) {
     console.log(eventId);  
     event.preventDefault();
       axios({
-          method: 'put',
+          method: 'post',
           url: '/comment',
           data: {
               _id: eventId,
