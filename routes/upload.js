@@ -2,7 +2,7 @@ const router = require('express').Router()
 const {Storage} = require('@google-cloud/storage')
 const Multer = require('multer')
 
-const secret = process.env.SECRET_KEY || ".secret_key.json"
+const secret = JSON.parse(process.env.SECRET_KEY) || ".secret_key.json"
 const storage = new Storage({
 	projectId: process.env.PROJECT_ID || "varan-e2dbf",
 	keyFilename: secret
@@ -22,8 +22,6 @@ router.post('/', multer.single('file'), (req, res, next)=>{
 
 	console.log("YOU HIT UPLOAD FILE ENDPOINT")
 	const file = req.file;
-	console.log("REW: ",req.res);
-	console.log("FILE: ",file);
 	if(file){
 		
 		let newFileName = `${req.file.originalname}_${Date.now()}`;
@@ -33,9 +31,10 @@ router.post('/', multer.single('file'), (req, res, next)=>{
                         contentType: req.file.mimetype,
                 },
         });
-
+	console.log("FILE: ",newFileName);
             blobStream.on('error', (err) =>{ var data = { "error" : err}
-                res.status(401).json(data);
+        		console.log("ERP! ",data);
+		    res.status(401).json(data);
             });
             blobStream.on('finish', ()=>{
             const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURI(blob.name)}?alt=media`;
