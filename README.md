@@ -1,13 +1,14 @@
-# Routes for Backend
-## Routes
 
-<<<<<<< HEAD
 # varan stack hack 1.0
 MERN STACK APPLICATION
 
+# Routes for Backend
+## Routes
+
+
 
 ## Link to Deployment [Deployment](https://varan-hack.herokuapp.com)
-=======
+
 Route  | Method | Use
 | ---- | ----- | -----|
 |`/home`  |  GET | List of Events |
@@ -17,4 +18,4 @@ Route  | Method | Use
 |`/user/:user_id` | GET | Get User Profile  |
 |`/event/register/:event_id` | POST | Register User for event  |
 |`/comment` |  PUT  | Make Comment |
->>>>>>> deployment
+
