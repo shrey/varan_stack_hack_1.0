@@ -2,7 +2,7 @@ var router = require('express').Router()
 var mongo = require('mongodb')
 var { check, validationResult } = require('express-validator');
 
-const MONGO_URL = 'mongodb://localhost'
+const MONGO_URL = process.env.MONGO_URI || 'mongodb://localhost'
 
 router.post('/:event_id', 
 [
@@ -58,8 +58,12 @@ router.post('/:event_id',
 					user_event = [{
 						_id : user_id,
 						name : req.body.name,
+<<<<<<< HEAD:backend/routes/event_registration.js
 						email : req.body.email,
 						image: req.body.image_url
+=======
+						email : req.body.email
+>>>>>>> deployment:routes/event_registration.js
 						}];
 				}
 				else{
@@ -77,7 +81,11 @@ router.post('/:event_id',
 							_id : user_id,
 							name : req.body.name,
 							email : req.body.email,
+<<<<<<< HEAD:backend/routes/event_registration.js
 							image: req.body.image_url,
+=======
+							image : req.body.image_url
+>>>>>>> deployment:routes/event_registration.js
 						});
 					}
 					else{

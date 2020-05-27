@@ -1,9 +1,9 @@
 var router = require('express').Router()
 var mongo = require('mongodb')
 
-const MONGO_URI = 'mongodb://localhost'
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost'
 
-router.put('/', (req, res, next)=>{
+router.post('/', (req, res, next)=>{
 
 	mongo.MongoClient.connect(MONGO_URI, (error, client)=>{
 
@@ -14,8 +14,9 @@ router.put('/', (req, res, next)=>{
 			var data = {
 				user : req.body.name,
 				comment : req.body.comment,
-				date : new Date.now()
+				date : new Date().toISOString().slice(0,10)
 			};
+			
 
 			if(comment == undefined)
 				comment = [data];
