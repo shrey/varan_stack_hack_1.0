@@ -21,7 +21,7 @@ const multer = Multer({
 router.post('/', multer.single('file'), (req, res, next)=>{
 
 	console.log("YOU HIT UPLOAD FILE ENDPOINT")
-
+	console.log("REQ: ",req);
 	const file = req.file;
 	if(file){
 		
