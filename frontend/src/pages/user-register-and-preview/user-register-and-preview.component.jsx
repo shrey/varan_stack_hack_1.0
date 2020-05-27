@@ -74,7 +74,8 @@ const UserRegister = ({match,eventName,history}) => {
         tickets: '',
         mobile_no: ''
     });
-
+    
+    const [file,setFile] = useState(null);
 
 
 
@@ -100,6 +101,17 @@ const UserRegister = ({match,eventName,history}) => {
         }
         setPreview(true);
     }
+    const handleFileChange = (event) =>{
+     const imageFile = event.target.files[0];
+     if(imageFile.type === 'image/jpeg' || imageFile.type === 'image/png'){
+        setFile(imageFile);
+    }
+     else{
+         alert("Please upload .png or .jpeg files");
+         
+     }
+        
+    }
     const handleSubmit = () =>{
         
         axios({
@@ -116,6 +128,7 @@ const UserRegister = ({match,eventName,history}) => {
 
         }).then(response => {
             alert("Successful Post");
+            //Have to enter the axios request here
             
             console.log(response);
             history.push(`/event/${match.params.id}`)
@@ -126,7 +139,23 @@ const UserRegister = ({match,eventName,history}) => {
     
     const classes = useStyles();
     
+    const formData = new FormData();
     
+    const handleUpload = () => {
+        formData.append("image", file);
+        console.log("Upload opened")
+        console.log(formData);
+        axios.post('/upload', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+        }).then(response => {
+            setUserCredentials({...userCredentials, image_url: response.data.url})
+            console.log('File Uploaded')
+        }).catch(error => {
+            console.log(error);
+        })
+    }
     
     return(
         
@@ -196,6 +225,7 @@ const UserRegister = ({match,eventName,history}) => {
                             value = {tickets}
                             className = {classes.previewText}
                             />
+                            
                             <TextField
                             variant="standard"
                             margin="normal"
@@ -270,19 +300,18 @@ const UserRegister = ({match,eventName,history}) => {
                 autoComplete="user-email"
                 value = {email}
                 />
-                <TextField
-                variant="outlined"
-                margin="normal"
-                required
+                
+                <input type = "file" onChange = {handleFileChange} />
+                <Button
+                type="button"
                 fullWidth
-                name="image_url"
-                label="Image URL"
-                type="text"
-                id = "user_image"
-                onChange = {handleChange}
-                autoComplete="user-image"
-                value = {image_url}
-                />
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick = {() => handleUpload()}
+                >
+                Upload
+            </Button>
                 <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel htmlFor="filled-age-native-simple">Registration Type</InputLabel>
                 <Select
