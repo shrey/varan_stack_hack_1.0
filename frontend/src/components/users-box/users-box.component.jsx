@@ -1,7 +1,8 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom'
 import './users-box.styles.scss'
 import {makeStyles} from '@material-ui/core/styles';
-import {Typography} from '@material-ui/core'
+import {Typography, Link} from '@material-ui/core'
 import { textAlign } from '@material-ui/system';
 const useStyles = makeStyles((theme) => ({
     usersBox: {
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
         marginRight: "60px",
         marginTop: "30px",
         backgroundColor: "#F1F1F1",
+        
     },
     userDetails: {
         marginLeft: "20px",
@@ -33,9 +35,14 @@ const useStyles = makeStyles((theme) => ({
     userBackground: {
         
         marginTop: "0px",
+    },
+    fixedBox: {
+        overflow: "scroll",
+        maxHeight: "400px"
     }
+
 }))
-const UsersBox = ({users}) => {
+const UsersBox = ({users,history}) => {
     if(!users){
         users = [];
     }
@@ -47,13 +54,19 @@ const UsersBox = ({users}) => {
             <div className = {classes.userContainer}>Registered Users</div>
             
     
-    
-    {
+            <div className = {classes.fixedBox}>
+            {
        
        users.map(user => (
            <div>
            <div className = {classes.userDetails}>
-               <Typography variant = 'subtitle1'>{user.name}</Typography>
+               <Typography variant = 'subtitle1' 
+               onClick = {
+                   () => history.push(`/user/${user._id}`)}
+                style = {{cursor: "pointer"}}   
+                >
+                   {user.name}
+                </Typography>
                <Typography variant = 'caption'>{user.email}</Typography>
             </div>
            <hr />
@@ -61,6 +74,8 @@ const UsersBox = ({users}) => {
           
        ))
    }
+            </div>
+    
     </div>
     
     
@@ -69,4 +84,4 @@ const UsersBox = ({users}) => {
     )
 }
 
-export default UsersBox;
+export default withRouter(UsersBox);

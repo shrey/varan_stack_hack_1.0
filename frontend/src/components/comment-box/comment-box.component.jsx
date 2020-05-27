@@ -131,6 +131,7 @@ export default function CommentBox({eventId,comments}) {
                  <div className = {classes.commentBox}>
                     <Typography variant = 'caption'>{comment.user}</Typography>
                     <Typography variant = 'body1'>{comment.comment}</Typography>
+                    <hr />
                     </div> ))}
                 </div>
             )
