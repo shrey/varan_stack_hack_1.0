@@ -2,13 +2,17 @@ const router = require('express').Router()
 const {Storage} = require('@google-cloud/storage')
 const Multer = require('multer')
 const fs = require('fs');
+const { exec } = require('child_process');
 
 const secret = JSON.parse(process.env.SECRET_KEY)
-fs.writeFile('secret_key.json', secret, function (err) {
+fs.writeFile('.secret_key.json', secret, function (err) {
   		if (err) throw err;
 		  console.log('Saved!');
 	});
 const secret_file = ".secret_key.json"
+exec("ls", (stderr, stdout)=>{
+	console.log("LS: ",stdout);
+});
 const storage = new Storage({
 	projectId: process.env.PROJECT_ID || "varan-e2dbf",
 	keyFilename: secret_file
