@@ -2,7 +2,7 @@ const router = require('express').Router()
 const {Storage} = require('@google-cloud/storage')
 const Multer = require('multer')
 
-const secret = JSON.parse(process.env.SECRET_KEY) || ".secret_key.json"
+const secret = process.env.SECRET_KEY || ".secret_key.json"
 const storage = new Storage({
 	projectId: process.env.PROJECT_ID || "varan-e2dbf",
 	keyFilename: secret
@@ -21,8 +21,9 @@ const multer = Multer({
 router.post('/', multer.single('file'), (req, res, next)=>{
 
 	console.log("YOU HIT UPLOAD FILE ENDPOINT")
-	console.log("REQ: ",req);
 	const file = req.file;
+	console.log("REW: ",req.res);
+	console.log("FILE: ",file);
 	if(file){
 		
 		let newFileName = `${req.file.originalname}_${Date.now()}`;
