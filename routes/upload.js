@@ -11,7 +11,7 @@ fs.writeFile('secret_key.json', secret, function (err) {
 const secret_file = ".secret_key.json"
 const storage = new Storage({
 	projectId: process.env.PROJECT_ID || "varan-e2dbf",
-	keyFilename: secret
+	keyFilename: secret_file
 
 });
 
