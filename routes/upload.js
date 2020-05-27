@@ -2,9 +2,10 @@ const router = require('express').Router()
 const {Storage} = require('@google-cloud/storage')
 const Multer = require('multer')
 
+const secret = JSON.parse(process.env.SECRET_KEY) || ".secret_key.json"
 const storage = new Storage({
 	projectId: process.env.PROJECT_ID || "varan-e2dbf",
-	keyFilename: process.env.SECRET_KEY || ".secret_key.json"
+	keyFilename: secret
 
 });
 
