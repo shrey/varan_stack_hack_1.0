@@ -138,11 +138,12 @@ const UserRegister = ({match,eventName,history}) => {
     }
     
     const classes = useStyles();
-    
-    const formData = new FormData();
-    
+
+
     const handleUpload = () => {
-        formData.append("image", file);
+	let formData = new FormData();
+        
+	formData.append("file", file);
         console.log("Upload opened")
         console.log(formData);
         axios.post('/upload', formData, {
