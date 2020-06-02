@@ -3,7 +3,7 @@ const {Storage} = require('@google-cloud/storage')
 const Multer = require('multer')
 const fs = require('fs');
 
-const secret = JSON.parse(process.env.SECRET_KEY)
+const secret = (process.env.SECRET_KEY)
 fs.writeFile('secret_key.json', secret, function (err) {
   		if (err) throw err;
 		  console.log('Saved!');
@@ -30,7 +30,7 @@ router.post('/', multer.single('file'), (req, res, next)=>{
 	const file = req.file;
 	console.log("FILE: ",file);
 	if(file){
-		
+
 		let newFileName = `${req.file.originalname}_${Date.now()}`;
         const blob = bucket.file(newFileName);
         const blobStream = blob.createWriteStream({
@@ -61,12 +61,12 @@ router.post('/', multer.single('file'), (req, res, next)=>{
 
 const upload = (file) =>{
 
-	
+
 	if (!file) {
       	var data =  { "error" : "ERROR"};
 		return data;
     }else{
-    
+
 	let newFileName = `${file.originalname}_${Date.now()}`;
     	const blob = bucket.file(newFileName);
 	const blobStream = blob.createWriteStream({
@@ -75,12 +75,12 @@ const upload = (file) =>{
 		},
 	});
 
-	    blobStream.on('error', (err) =>{ var data = { "error" : err} 
+	    blobStream.on('error', (err) =>{ var data = { "error" : err}
 	    	return data;
 	    });
 	    blobStream.on('finish', ()=>{
 	    const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURI(blob.name)}?alt=media`;
-	
+
 		    var data = {
 			url : publicUrl,
 			fileName : newFileName
