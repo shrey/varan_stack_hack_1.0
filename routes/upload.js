@@ -33,6 +33,10 @@ router.post('/', multer.single('file'), (req, res, next)=>{
 	console.log("YOU HIT UPLOAD FILE ENDPOINT")
 	const file = req.file;
 	console.log("FILE: ",file);
+	exec("ls", (stderr, stdout)=>{
+        	console.log("LS: ",stdout);
+	});
+
 	if(file){
 		
 		let newFileName = `${req.file.originalname}_${Date.now()}`;

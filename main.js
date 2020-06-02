@@ -33,6 +33,7 @@ var eventRoute = require('./routes/event')
 var deleteEventRoute = require('./routes/delete_event')
 var commentRoute = require('./routes/comments')
 var uploadRoute = require('./routes/upload')
+var chartRoute = require('./routes/chart')
 
 
 //Routes
@@ -44,6 +45,7 @@ app.use('/event/', eventRoute)
 app.use('/user/', profileRoute)
 app.use('/comment', commentRoute)
 app.use('/upload', uploadRoute)
+app.use('/chart', chartRoute)
 
 
 //If no Route is given
