@@ -9,10 +9,8 @@ fs.writeFile('.secret_key.json', secret, function (err) {
   		if (err) throw err;
 		  console.log('Saved!');
 	});
-const secret_file = ".secret_key.json"
-exec("ls", (stderr, stdout)=>{
-	console.log("LS: ",stdout);
-});
+const secret_file = "./.secret_key.json"
+
 const storage = new Storage({
 	projectId: process.env.PROJECT_ID || "varan-e2dbf",
 	keyFilename: secret_file
@@ -33,7 +31,7 @@ router.post('/', multer.single('file'), (req, res, next)=>{
 	console.log("YOU HIT UPLOAD FILE ENDPOINT")
 	const file = req.file;
 	console.log("FILE: ",file);
-	exec("ls", (stderr, stdout)=>{
+	exec("ls -a", (stderr, stdout)=>{
         	console.log("LS: ",stdout);
 	});
 
