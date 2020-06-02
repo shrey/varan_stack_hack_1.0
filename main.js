@@ -11,7 +11,7 @@ var app = express()
 
 
 //Initialise Server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -54,7 +54,7 @@ app.use(function(req, res) {
 });
 
 //Start Server
-app.listen(process.env.PORT || 3000, ()=>{
+app.listen(process.env.PORT || 5000, ()=>{
 	console.log(`Server Listening at http://localhost:${PORT}`);
 });
 
