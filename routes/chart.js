@@ -6,15 +6,19 @@ const MONGO_URL = process.env.MONGO_URI || 'mongodb://localhost'
 router.get('/', (req, res, next)=>{
 
 	mongo.MongoClient.connect(MONGO_URL, (error, client)=>{
-	
+
 		if(error)
 			res.status(200).json({"msg" : "Internal Server Error"});
 		else{
 			var user_db = client.db('varan').collection('user');
 
 			user_db.find({}).toArray((err, users)=>{
-			
-				var self, group, corporate;
+
+
+				var self = 0;
+				var corporate = 0;
+				var group = 0;
+				var others = 0;
 
 				for(var i = 0; i < users.length; i++)
 				{
@@ -24,10 +28,15 @@ router.get('/', (req, res, next)=>{
 					{
 						self += 1;
 					} else{
-						if(type == group){
+						if(type == "group"){
 							group += 1;
 						} else {
-							corporate += 1;
+							if(type == "corporate"){
+								corporate += 1;
+							}
+							if(type == "others"){
+								others += 1;
+							}
 						}
 					}
 				}
@@ -35,7 +44,8 @@ router.get('/', (req, res, next)=>{
 				var data = {
 					self : self,
 					group : group,
-					corporate : corporate
+					corporate : corporate,
+					others: others
 				};
 
 //				console.log("EVENTS: ",home_events);

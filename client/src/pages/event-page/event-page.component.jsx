@@ -12,6 +12,7 @@ import MapGL,{Marker} from '@urbica/react-map-gl';
 import PinDropIcon from '@material-ui/icons/PinDrop';
 import CommentBox from '../../components/comment-box/comment-box.component'
 import UsersBox from '../../components/users-box/users-box.component'
+import UserChart from '../../components/user-ratio-chart/user-ratio-chart.component'
 const useStyles = makeStyles({
     card: {
         flexDirection: 'column',
@@ -34,9 +35,9 @@ const EventPage = ({match,setName,isAdmin,history}) => {
         latitude: 37.78,
         longitude: -122.41,
         zoom: 11
-      }); 
+      });
     useEffect(() => {
-       
+
         axios({
             method: 'get',
             url: `/event/${match.params.id}`
@@ -44,14 +45,14 @@ const EventPage = ({match,setName,isAdmin,history}) => {
             setEvent(response.data);
             console.log(response.data);
             alert("Successful Request");
-            
+
             const {name} = response.data;
             setName(name);
         }).catch(error => {
             console.log(error);
             alert("Error Occured");
         })
-    },[])  
+    },[])
     const {name,_id,description,image,location,comments,users} = event;
         console.log(event);
       const latitude = event.coordinates? event.coordinates.lat: 0;
@@ -60,10 +61,10 @@ const EventPage = ({match,setName,isAdmin,history}) => {
             axios({
                 method: 'get',
                 url: `/event/delete/${match.params.id}`,
-                
+
             }).then(response => {
                 alert('Deleted the page')
-                
+
             }).catch(error => {
                 alert("Some error occured while deleting")
             })
@@ -107,10 +108,11 @@ const EventPage = ({match,setName,isAdmin,history}) => {
                         </Marker>
                     </MapGL>
                     <UsersBox users = {users}/>
+                    <UserChart />
                     </Grid>
                 </Grid>
                 <div style = {{textAlign: "center",marginTop: "20px"
-                                
+
                                 }}>
                     <Button variant = "contained" onClick = {() => history.push(`${match.url}/register`)} color = "primary">
                         REGISTER
@@ -118,17 +120,17 @@ const EventPage = ({match,setName,isAdmin,history}) => {
                 </div>
             </CardContent>
            </Card>
-           
-           </Container>
-           
-          </div>
-            
-           
 
-           
-            
-        )     
-    
+           </Container>
+
+          </div>
+
+
+
+
+
+        )
+
 }
 const mapStateToProps = createStructuredSelector({
     isAdmin: selectAdminPresent
