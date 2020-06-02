@@ -1,6 +1,7 @@
 import {EventActionTypes} from './single-event.types'
 const INITIAL_STATE = {
-        name: ''
+        name: '',
+        isLoading: false
 }
 const eventReducer = (state = INITIAL_STATE, action) => {
     switch(action.type){
@@ -9,7 +10,17 @@ const eventReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 name: action.payload
             }
-            default: 
+        case EventActionTypes.TURN_LOADING_ON:
+            return{
+                ...state,
+                isLoading: true
+            }
+        case EventActionTypes.TURN_LOADING_OFF:
+            return{
+                ...state,
+                isLoading: false
+            }
+            default:
                 return state;
     }
 }

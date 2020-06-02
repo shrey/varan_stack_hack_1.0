@@ -6,3 +6,8 @@ export const selectEventName = createSelector(
     [selectEvent],
     event => event.name
 )
+
+export const selectIsLoading = createSelector(
+    [selectEvent],
+    event => event.isLoading
+)

@@ -4,7 +4,8 @@ import Grid from '@material-ui/core/Grid'
 import EventContent from '../../components/events-collection-content/events-collection-content.component'
 import {Container} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
-
+import {turnLoadingOn, turnLoadingOff} from '../../redux/single-event/single-event.actions'
+import {connect} from 'react-redux'
 class CollectionPage extends React.Component{
     constructor(props){
         super(props);
@@ -13,7 +14,10 @@ class CollectionPage extends React.Component{
         }
 
     }
+
     async componentDidMount() {
+        const {turnLoadingOff, turnLoadingOn} = this.props;
+        turnLoadingOn();
         axios({
             method: 'get',
             url: '/home',
@@ -22,28 +26,34 @@ class CollectionPage extends React.Component{
             this.setState({eventCollections: response.data})
             console.log(this.state);
             console.log('Fetched data')
+            turnLoadingOff();
         })
         .catch(error => {
             console.log(error)
             alert("couldn't fetch data")
+            turnLoadingOff();
         })
-    }     
-    
+    }
+
     render(){
         const{eventCollections} = this.state;
-        
+
         return(
             <div>
                  <Container  maxWidth="md">
                     <EventContent events = {eventCollections}/>
                  </Container>
-            
-                
-            
+
+
+
             </div>
-            
-            
+
+
         )
     }
 }
-export default CollectionPage;
+const mapDispatchToProps = dispatch => ({
+    turnLoadingOn: () => dispatch(turnLoadingOn()),
+    turnLoadingOff: () => dispatch(turnLoadingOff())
+})
+export default connect(null, mapDispatchToProps)(CollectionPage);
