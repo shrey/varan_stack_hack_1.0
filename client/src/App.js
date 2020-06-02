@@ -11,6 +11,7 @@ import EventPage from './pages/event-page/event-page.component'
 import {selectAdminPresent} from './redux/admin/admin.selector'
 import UserRegister from './pages/user-register-and-preview/user-register-and-preview.component';
 import UserProfile from './pages/user-profile/user-profile.component'
+import {selectIsLoading} from './redux/single-event/single-event.selectors'
 function App({isAdmin}) {
   console.log("Admin: ")
   console.log(isAdmin);
@@ -19,8 +20,8 @@ function App({isAdmin}) {
       <Header />
       <Switch>
         <Route exact path = "/" component = {CollectionPage} />
-        <Route exact path = "/admin" 
-        render = 
+        <Route exact path = "/admin"
+        render =
         {
           () => isAdmin?
             (<Redirect to = '/' />):
@@ -35,7 +36,7 @@ function App({isAdmin}) {
 
       </Switch>
    </div>
-   
+
   );
 }
 const mapStateToProps = createStructuredSelector({

@@ -13,6 +13,7 @@ import PinDropIcon from '@material-ui/icons/PinDrop';
 import CommentBox from '../../components/comment-box/comment-box.component'
 import UsersBox from '../../components/users-box/users-box.component'
 import UserChart from '../../components/user-ratio-chart/user-ratio-chart.component'
+import Spinner from '../../components/spinner/spinner.component'
 const useStyles = makeStyles({
     card: {
         flexDirection: 'column',
@@ -109,6 +110,7 @@ const EventPage = ({match,setName,isAdmin,history}) => {
                     </MapGL>
                     <UsersBox users = {users}/>
                     <UserChart />
+
                     </Grid>
                 </Grid>
                 <div style = {{textAlign: "center",marginTop: "20px"
