@@ -18,4 +18,6 @@ Route  | Method | Use
 |`/user/:user_id` | GET | Get User Profile  |
 |`/event/register/:event_id` | POST | Register User for event  |
 |`/comment` |  PUT  | Make Comment |
+|`/upload`  |  POST | Upload a File |
+|`/chart`   |  POST | To get Chart Data |
 
