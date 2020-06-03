@@ -109,7 +109,7 @@ const EventPage = ({match,setName,isAdmin,history}) => {
                         </Marker>
                     </MapGL>
                     <UsersBox users = {users}/>
-                    <UserChart />
+                    <UserChart eventId = {match.params.id} />
 
                     </Grid>
                 </Grid>
