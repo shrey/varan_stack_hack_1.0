@@ -1,31 +1,58 @@
 import React from 'react';
 import {Pie, Doughnut} from 'react-chartjs-2';
+import axios from 'axios';
 
-const state = {
-  labels: ['Self', 'Group', 'Corporate',
-           'Others',],
-  datasets: [
-    {
-      label: 'Rainfall',
-      backgroundColor: [
-        '#B21F00',
-        '#C9DE00',
-        '#2FDE00',
-        '#00A6B4',
-      ],
-      hoverBackgroundColor: [
-      '#501800',
-      '#4B5000',
-      '#175000',
-      '#003350'
-      ],
-      data: [65, 59, 80, 81]
-    }
-  ]
-}
 
 export default class UserChart extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      data: []
+    }
+  }
+  componentDidMount(){
+    const {eventId} = this.props;
+    axios({
+      method: 'get',
+      url: `/chart/${eventId}`
+    }).then(response => {
+      console.log("Chart Response", response.data);
+      const chartData = response.data;
+      const data = [];
+      data.push(chartData["corporate"])
+      data.push(chartData["group"])
+      data.push(chartData["others"])
+      data.push(chartData["self"])
+
+      this.setState({data: data})
+      console.log(this.state.data);
+    }).catch(error => {
+      console.log("chart error ", error.message);
+    })
+  }
   render() {
+    const state = {
+      labels: ['Corporate', 'Group',
+               'Others','Self'],
+      datasets: [
+        {
+          label: 'Rainfall',
+          backgroundColor: [
+            '#B21F00',
+            '#C9DE00',
+            '#2FDE00',
+            '#00A6B4',
+          ],
+          hoverBackgroundColor: [
+          '#501800',
+          '#4B5000',
+          '#175000',
+          '#003350'
+          ],
+          data: this.state.data
+        }
+      ]
+    }
     return (
       <div style = {{marginTop: "100px"}}>
         <Pie
