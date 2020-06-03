@@ -45,7 +45,7 @@ app.use('/event/', eventRoute)
 app.use('/user/', profileRoute)
 app.use('/comment', commentRoute)
 app.use('/upload', uploadRoute)
-app.use('/chart', chartRoute)
+app.use('/chart/', chartRoute)
 
 
 //If no Route is given

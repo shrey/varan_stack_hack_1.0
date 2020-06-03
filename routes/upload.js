@@ -2,13 +2,8 @@ const router = require('express').Router()
 const {Storage} = require('@google-cloud/storage')
 const Multer = require('multer')
 const fs = require('fs');
-const { exec } = require('child_process');
 
-const secret = (process.env.SECRET_KEY)
-fs.writeFile('secret_key.json', secret, function (err) {
-  		if (err) throw err;
-		  console.log('Saved!');
-	});
+
 const secret_file = "./.secret_key.json"
 
 const storage = new Storage({
@@ -30,10 +25,7 @@ router.post('/', multer.single('file'), (req, res, next)=>{
 
 	console.log("YOU HIT UPLOAD FILE ENDPOINT")
 	const file = req.file;
-	console.log("FILE: ",file);
-	exec("ls -a", (stderr, stdout)=>{
-        	console.log("LS: ",stdout);
-	});
+
 
 	if(file){
 
@@ -44,7 +36,7 @@ router.post('/', multer.single('file'), (req, res, next)=>{
                         contentType: req.file.mimetype,
                 },
         });
-	console.log("FILE: ",newFileName);
+
             blobStream.on('error', (err) =>{ var data = { "error" : err}
         		console.log("ERP! ",data);
 		    res.status(401).json(data);
