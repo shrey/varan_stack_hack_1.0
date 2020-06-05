@@ -26,18 +26,7 @@ import DirectionsIcon from '@material-ui/icons/Directions';
 import PinDropIcon from '@material-ui/icons/PinDrop';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -94,6 +83,33 @@ function AddEvent({history}) {
         longitude: 0,
         latitude: 0
       });
+    const [file,setFile] = useState(null);
+    const handleFileChange = (event) =>{
+      const imageFile = event.target.files[0];
+      if(imageFile.type === 'image/jpeg' || imageFile.type === 'image/png'){
+         setFile(imageFile);
+     }
+      else{
+          alert("Please upload .png or .jpeg files");
+      }
+     }
+
+     const handleUpload = () => {
+      let formData = new FormData();
+      formData.append("file", file);
+            console.log("Upload opened")
+            console.log(formData);
+            axios.post('/upload', formData, {
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
+            }).then(response => {
+                setEventCredentials({...eventCredentails, image: response.data.url})
+                console.log('File Uploaded')
+            }).catch(error => {
+                console.log(error);
+            })
+        }
     const handleSubmit = async event =>{
         event.preventDefault();
         axios({
@@ -117,10 +133,9 @@ function AddEvent({history}) {
                 'Some problem while adding the event'
             )
         })
-        //trigger sagas.
     }
-    
-      
+
+
       const style = {
         padding: '10px',
         color: '#fff',
@@ -136,7 +151,7 @@ function AddEvent({history}) {
         longitude: -122.41,
         zoom: 11
       });
-      
+
     const handleLocation = async (event) => {
         const address = encodeURIComponent(eventCredentails.location);
         axios({
@@ -154,7 +169,7 @@ function AddEvent({history}) {
         })
     }
       return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" style = {{justifyContent : "center"}}>
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -192,20 +207,17 @@ function AddEvent({history}) {
             onChange = {handleChange}
             required
           />
-            <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="image"
-            label="ImageURL"
-            type="text"
-            id="eventImage"
-            value = {image}
-            autoComplete="event-image"
-            onChange = {handleChange}
-            required
-          />
+            <input type = "file" onChange = {handleFileChange} />
+                <Button
+                type="button"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick = {() => handleUpload()}
+                >
+                Upload Image (.jpeg or .png)
+            </Button>
             <TextField
             variant="outlined"
             margin="normal"
@@ -250,12 +262,10 @@ function AddEvent({history}) {
           >
             Add Event
           </Button>
-          
+
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
+
     </Container>
   );
 
@@ -265,4 +275,3 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default withRouter(connect(null,mapDispatchToProps)(AddEvent));
-

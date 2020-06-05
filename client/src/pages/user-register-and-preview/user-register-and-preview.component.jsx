@@ -57,15 +57,15 @@ const useStyles = makeStyles((theme) => ({
         margin: "20px"
     }
   }));
-  
+
 const UserRegister = ({match,eventName,history}) => {
     console.log("USER REGISTER")
     console.log(match);
-    
+
     const [preview,setPreview] = useState(false);
-    
-    const [userCredentials, setUserCredentials] = 
-    
+
+    const [userCredentials, setUserCredentials] =
+
     useState({
         name: '',
         email: '',
@@ -74,14 +74,14 @@ const UserRegister = ({match,eventName,history}) => {
         tickets: '',
         mobile_no: ''
     });
-    
+
     const [file,setFile] = useState(null);
 
 
 
     const {name,email,image_url,registration_type,tickets,mobile_no} = userCredentials;
     const handleChange = event => {
-        
+
         const {name,value} = event.target;
         console.log(value);
         setUserCredentials({...userCredentials, [name]: value});
@@ -108,12 +108,12 @@ const UserRegister = ({match,eventName,history}) => {
     }
      else{
          alert("Please upload .png or .jpeg files");
-         
+
      }
-        
+
     }
     const handleSubmit = () =>{
-        
+
         axios({
             url: `/event/register/${match.params.id}`,
             method: 'post',
@@ -129,20 +129,20 @@ const UserRegister = ({match,eventName,history}) => {
         }).then(response => {
             alert("Successful Post");
             //Have to enter the axios request here
-            
+
             console.log(response);
             history.push(`/event/${match.params.id}`)
         }).catch(error => {
             alert("Some error occured")
         })
     }
-    
+
     const classes = useStyles();
 
 
     const handleUpload = () => {
 	let formData = new FormData();
-        
+
 	formData.append("file", file);
         console.log("Upload opened")
         console.log(formData);
@@ -157,9 +157,9 @@ const UserRegister = ({match,eventName,history}) => {
             console.log(error);
         })
     }
-    
+
     return(
-        
+
           <div>
             {
                 preview? (
@@ -174,12 +174,12 @@ const UserRegister = ({match,eventName,history}) => {
                             isRequired="true"
                             margin="normal"
                             className = {classes.previewText}
-                            
+
                             name="name"
                             label="Name"
                             type="Text"
                             id = "user_name_preview"
-                            
+
                             autoComplete="user-name"
                             value = {name}
                             disabled
@@ -187,7 +187,7 @@ const UserRegister = ({match,eventName,history}) => {
                             <TextField
                             variant="standard"
                             margin="normal"
-                            
+
                             disabled
                             name="email"
                             label="Email"
@@ -201,7 +201,7 @@ const UserRegister = ({match,eventName,history}) => {
                             <TextField
                             variant="standard"
                             margin="normal"
-                            
+
                             disabled
                             name="registration_type"
                             label="Registration Type"
@@ -215,7 +215,7 @@ const UserRegister = ({match,eventName,history}) => {
                             <TextField
                             variant="standard"
                             margin="normal"
-                            
+
                             disabled
                             name="tickets"
                             label="Tickets"
@@ -226,11 +226,11 @@ const UserRegister = ({match,eventName,history}) => {
                             value = {tickets}
                             className = {classes.previewText}
                             />
-                            
+
                             <TextField
                             variant="standard"
                             margin="normal"
-                            
+
                             disabled
                             name="mobile_no"
                             label="Mobile Number"
@@ -264,11 +264,11 @@ const UserRegister = ({match,eventName,history}) => {
                 </div>
             ):
             (
-            
+
             <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
-            
+
             <Typography component="h1" variant="h5">
                 Register for {eventName}
             </Typography>
@@ -286,7 +286,7 @@ const UserRegister = ({match,eventName,history}) => {
                 onChange = {handleChange}
                 autoComplete="user-name"
                 value = {name}
-                
+
                 />
                 <TextField
                 variant="outlined"
@@ -301,7 +301,7 @@ const UserRegister = ({match,eventName,history}) => {
                 autoComplete="user-email"
                 value = {email}
                 />
-                
+
                 <input type = "file" onChange = {handleFileChange} />
                 <Button
                 type="button"
@@ -311,7 +311,7 @@ const UserRegister = ({match,eventName,history}) => {
                 className={classes.submit}
                 onClick = {() => handleUpload()}
                 >
-                Upload
+                Upload Image (.jpeg or .png)
             </Button>
                 <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel htmlFor="filled-age-native-simple">Registration Type</InputLabel>
@@ -332,7 +332,7 @@ const UserRegister = ({match,eventName,history}) => {
                 <option value="Others">Others</option>
                 </Select>
                 </FormControl>
-                
+
                 <TextField
                 variant="outlined"
                 margin="normal"
@@ -369,16 +369,16 @@ const UserRegister = ({match,eventName,history}) => {
             >
                 Preview
             </Button>
-                
+
                 </form>
                 </div>
             </Container>
-            
+
             )
 }
-            
+
           </div>
-        
+
     )
 
 }
