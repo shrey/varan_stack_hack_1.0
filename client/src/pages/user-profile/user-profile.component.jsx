@@ -34,10 +34,10 @@ const UserProfile = ({match}) => {
             url: `/user/${match.params.id}`
         }).then(response => {
             console.log(response.data);
-            alert('fetched');
+
             setUserCredentials(response.data);
         }).catch(error => {
-            alert("Some error");
+
             console.log(error);
         })
     },[])
@@ -49,32 +49,32 @@ const UserProfile = ({match}) => {
 
                                     <div className = {classes.paper}>
                                         <Avatar alt = {name} src = {image_url} alt = {name} className = {classes.avatar}/>
-                                        
+
                                         <TextField
                                         variant="standard"
                                         value = {name}
                                         margin="normal"
                                         className = {classes.previewText}
-                                        
+
                                         name="name"
-                                        
+
                                         type="Text"
                                         id = "user_name_preview"
-                                        
+
                                         autoComplete="user-name"
-                                        
+
                                         disabled
                                         />
                                         <TextField
                                         variant="standard"
                                         margin="normal"
-                                        
+
                                         disabled
                                         name="email"
-                                        
+
                                         type="email"
                                         id = "user_email_preview"
-                                        
+
                                         autoComplete="user-email"
                                         value = {email}
                                         className = {classes.previewText}
@@ -82,13 +82,13 @@ const UserProfile = ({match}) => {
                                         <TextField
                                         variant="standard"
                                         margin="normal"
-                                        
+
                                         disabled
                                         name="registration_type"
-                                        
+
                                         type="text"
                                         id = "registration_type_preview"
-                                        
+
                                         autoComplete="registration-type"
                                         value = {registration_type}
                                         className = {classes.previewText}
@@ -96,13 +96,13 @@ const UserProfile = ({match}) => {
                                         <TextField
                                         variant="standard"
                                         margin="normal"
-                                        
+
                                         disabled
                                         name="tickets"
-                                        
+
                                         type="text"
                                         id = "tickets_preview"
-                                        
+
                                         autoComplete="registration-type"
                                         value = {tickets}
                                         className = {classes.previewText}
@@ -110,13 +110,13 @@ const UserProfile = ({match}) => {
                                         <TextField
                                         variant="standard"
                                         margin="normal"
-                                        
+
                                         disabled
                                         name="mobile_no"
-                                        
+
                                         type="text"
                                         id = "mobile_no__preview"
-                                        
+
                                         autoComplete="mobile-no"
                                         value = {mobile_no}
                                         className = {classes.previewText}

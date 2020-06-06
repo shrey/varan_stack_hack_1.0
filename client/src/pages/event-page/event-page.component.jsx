@@ -28,6 +28,9 @@ const useStyles = makeStyles({
     },
     cardContent: {
         flexGrow: 1
+    },
+    button : {
+        margin : "5px"
     }
 })
 const EventPage = ({match,setName,isAdmin,history}) => {
@@ -45,13 +48,13 @@ const EventPage = ({match,setName,isAdmin,history}) => {
         }).then(response => {
             setEvent(response.data);
             console.log(response.data);
-            alert("Successful Request");
+
 
             const {name} = response.data;
             setName(name);
         }).catch(error => {
             console.log(error);
-            alert("Error Occured");
+
         })
     },[])
     const {name,_id,description,image,location,comments,users} = event;
@@ -65,9 +68,11 @@ const EventPage = ({match,setName,isAdmin,history}) => {
 
             }).then(response => {
                 alert('Deleted the page')
+                history.push("/");
 
             }).catch(error => {
                 alert("Some error occured while deleting")
+                history.push("/");
             })
         }
         console.log(match);
@@ -116,8 +121,11 @@ const EventPage = ({match,setName,isAdmin,history}) => {
                 <div style = {{textAlign: "center",marginTop: "20px"
 
                                 }}>
-                    <Button variant = "contained" onClick = {() => history.push(`${match.url}/register`)} color = "primary">
+                    <Button variant = "contained" className = {classes.button} onClick = {() => history.push(`${match.url}/register`)} color = "primary">
                         REGISTER
+                    </Button>
+                    <Button variant = "contained" className = {classes.button} onClick = {() => handleDelete()} color = "secondary">
+                        Delete
                     </Button>
                 </div>
             </CardContent>

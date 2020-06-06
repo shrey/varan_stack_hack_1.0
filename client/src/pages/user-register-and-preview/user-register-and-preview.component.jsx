@@ -70,7 +70,7 @@ const UserRegister = ({match,eventName,history}) => {
         name: '',
         email: '',
         image_url: '',
-        registration_type: '',
+        registration_type: 'Group',
         tickets: '',
         mobile_no: ''
     });
@@ -80,11 +80,11 @@ const UserRegister = ({match,eventName,history}) => {
 
 
     const {name,email,image_url,registration_type,tickets,mobile_no} = userCredentials;
-    const handleChange = event => {
+    const handleChange = async event => {
 
         const {name,value} = event.target;
         console.log(value);
-        setUserCredentials({...userCredentials, [name]: value});
+        await setUserCredentials({...userCredentials, [name]: value});
         console.log(userCredentials);
     }
     const setToPreview = event =>{
@@ -275,7 +275,6 @@ const UserRegister = ({match,eventName,history}) => {
             <form className={classes.form} noValidate onSubmit = {setToPreview}>
                 <TextField
                 variant="outlined"
-                isRequired="true"
                 margin="normal"
                 required
                 fullWidth
@@ -319,6 +318,7 @@ const UserRegister = ({match,eventName,history}) => {
                 native
                 name = 'registration_type'
                 onChange={handleChange}
+                required
                 label="Registration Type"
                 inputProps={{
                     name: 'registration_type',

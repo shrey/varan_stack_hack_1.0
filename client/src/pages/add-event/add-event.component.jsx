@@ -74,10 +74,11 @@ function AddEvent({history}) {
         location: ''
     })
     const {name,description,image,location} = eventCredentails;
-    const handleChange = event => {
+    const handleChange = async event => {
         const {name,value} = event.target;
         console.log(name,value);
-        setEventCredentials({...eventCredentails,[name]: value})
+        await setEventCredentials({...eventCredentails,[name]: value})
+        console.log(eventCredentails);
     }
     const [position, setPosition] = useState({
         longitude: 0,
@@ -124,14 +125,12 @@ function AddEvent({history}) {
                 lng: position.longitude,
             }
         }).then(response => {
-            alert('Request Sent');
+
             history.push("/");
         })
         .catch(error => {
             console.log('Error: ',error);
-            alert(
-                'Some problem while adding the event'
-            )
+
         })
     }
 

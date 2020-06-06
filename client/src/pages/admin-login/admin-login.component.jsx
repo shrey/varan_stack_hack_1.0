@@ -51,7 +51,7 @@ function SignIn({setAdmin}) {
   const classes = useStyles();
     const [key,setKey] = useState('');
     const handleChange = event => {
-        
+
         console.log("I'm fired")
         const {value} = event.target;
         console.log(value);
@@ -64,7 +64,7 @@ function SignIn({setAdmin}) {
         setAdmin();
     }
     else{
-        console.log("Wrong Key");
+        alert("Wrong Password Entered");
     }
 
   }
@@ -105,7 +105,7 @@ function SignIn({setAdmin}) {
           >
             Login
           </Button>
-          
+
         </form>
       </div>
       <Box mt={8}>
@@ -120,4 +120,3 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(null,mapDispatchToProps)(SignIn);
-

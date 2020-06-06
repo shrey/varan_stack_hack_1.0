@@ -16,28 +16,28 @@ const theme = createMuiTheme({
 })
 const useStyles = makeStyles((theme) => ({
   commentBox: {
-    marginTop: "30px",  
+    marginTop: "30px",
     width: "400px"
   },
   heading: {
-    paddingTop: "30px",  
+    paddingTop: "30px",
     letterSpacing: '.2rem',
     color: '#000000'
   },
   button: {
       marginTop: "30px",
       textAlign: "center",
-      
-     
+
+
   },
   card: {
       display: 'inline-block',
       marginRight: "30px",
-      
+
       marginTop: "30px"
   },
   comments: {
-    marginTop: "30px",  
+    marginTop: "30px",
     width: "400px",
     maxHeight: "400px",
     overflow: "scroll",
@@ -59,7 +59,7 @@ export default function CommentBox({eventId,comments}) {
   }
   const handleSubmit = event => {
     console.log(commentCredentials);
-    console.log(eventId);  
+    console.log(eventId);
     event.preventDefault();
       axios({
           method: 'put',
@@ -67,34 +67,34 @@ export default function CommentBox({eventId,comments}) {
           data: {
               _id: eventId,
               name: commentCredentials.name,
-              comment: commentCredentials.comment  
+              comment: commentCredentials.comment
           }
       }).then(response => {
-          alert("Comment succesful")
+
           setCommentCredentials({
               name: '',
               comment: ''
           })
           window.location.reload(false);
       }).catch(error => {
-          alert("Comment error")
+
           console.log(error);
-          
+
       })
   }
     return (
     <div>
-        
+
         <Card className = {classes.card}>
             <CardContent>
             <Typography variant = 'h5' color = 'primary' align = 'center' className = {classes.heading}>Comment</Typography>
-        
+
         <form onSubmit = {handleSubmit}>
         <TextField id="standard-basic"
-         label="Name" 
-         className = {classes.commentBox} 
+         label="Name"
+         className = {classes.commentBox}
          name = 'name'
-         onChange = {handleChange} 
+         onChange = {handleChange}
          required
          value = {commentCredentials.name}
           />
@@ -112,19 +112,19 @@ export default function CommentBox({eventId,comments}) {
          <div style = {{textAlign: 'center'}}>
          <Button
          variant="contained"
-         
+
          className={classes.button}
          endIcon={<AddCommentIcon />}
          type = "submit"
-         
+
        >
          Comment
        </Button>
         </div>
        </form>
         {
-            
-            comments? 
+
+            comments?
             (
                 <div className = {classes.comments}>
                 {comments.map(comment => (
@@ -137,18 +137,18 @@ export default function CommentBox({eventId,comments}) {
             )
                 :
            (null)
-            
-        }    
+
+        }
             </CardContent>
         </Card>
-       
 
-       
-       
-      
+
+
+
+
     </div>
-        
-    
-    
+
+
+
   );
 }

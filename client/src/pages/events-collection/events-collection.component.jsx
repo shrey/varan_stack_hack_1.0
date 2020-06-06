@@ -30,7 +30,7 @@ class CollectionPage extends React.Component{
         })
         .catch(error => {
             console.log(error)
-            alert("couldn't fetch data")
+
             turnLoadingOff();
         })
     }
