@@ -17,7 +17,7 @@ Route  | Method | Use
 |`/event/:event_id` | GET |  Get single event  |
 |`/user/:user_id` | GET | Get User Profile  |
 |`/event/register/:event_id` | POST | Register User for event  |
-|`/comment` |  PUT  | Make Comment |
+|`/comment` |  POST  | Make Comment |
 |`/upload`  |  POST | Upload a File |
 |`/chart/:id`   |  POST | To get Chart Data |
 
